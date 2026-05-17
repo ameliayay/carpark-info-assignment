@@ -31,33 +31,33 @@ Copy the token from the response, then save it:
 set TOKEN=!!!PASTE TOKEN!!!
 
 ### Step 4: Filter Carparks (No Token Needed)
-Get All Carparks
-- curl http://localhost:5185/api/carparks
+- Get All Carparks
+curl http://localhost:5185/api/carparks
 
-Filter by Free Parking
-- curl "http://localhost:5185/api/carparks?freeParking=true"
+- Filter by Free Parking
+curl "http://localhost:5185/api/carparks?freeParking=true"
 
-Filter by Night Parking
-- curl "http://localhost:5185/api/carparks?nightParking=true"
+- Filter by Night Parking
+curl "http://localhost:5185/api/carparks?nightParking=true"
 
-Filter by Vehicle Height
-- curl "http://localhost:5185/api/carparks?minVehicleHeight=2.1"
+- Filter by Vehicle Height
+curl "http://localhost:5185/api/carparks?minVehicleHeight=2.1"
 
-Combine All Filters
-- curl "http://localhost:5185/api/carparks?freeParking=true&nightParking=true&minVehicleHeight=2.1"
+- Combine All Filters
+curl "http://localhost:5185/api/carparks?freeParking=true&nightParking=true&minVehicleHeight=2.1"
 
-Get Single Carpark
-- curl http://localhost:5185/api/carparks/ACB
+- Get Single Carpark
+curl http://localhost:5185/api/carparks/ACB
 
 ### Step 5: Test favourite
-Add Favourite
-- curl -X POST http://localhost:5185/api/favourites -H "Content-Type: application/json" -H "Authorization: Bearer %TOKEN%" -d "{\"carParkNo\":\"ACB\"}"
+- Add Favourite
+curl -X POST http://localhost:5185/api/favourites -H "Content-Type: application/json" -H "Authorization: Bearer %TOKEN%" -d "{\"carParkNo\":\"ACB\"}"
 
-Get Favourites
-- curl http://localhost:5185/api/favourites -H "Authorization: Bearer %TOKEN%"
+- Get Favourites
+curl http://localhost:5185/api/favourites -H "Authorization: Bearer %TOKEN%"
 
-Remove Favourite
-- curl -X DELETE http://localhost:5185/api/favourites/ACB -H "Authorization: Bearer %TOKEN%"
+- Remove Favourite
+curl -X DELETE http://localhost:5185/api/favourites/ACB -H "Authorization: Bearer %TOKEN%"
 
 ## ER Diagram
 [Carpark.png]
