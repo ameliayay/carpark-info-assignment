@@ -1,53 +1,66 @@
 # Carpark-Info
-A take-home coding assignment for backend developer interview. 
 
-## Your Task
-1. Given the CSV dataset (hdb-carpark-information-<timestamp>.csv) that contains details of a list of carparks, design the database to store the given information in the dataset and to support the below given user stories. ER diagram should be provided.
-2. Write a batch job that will process and store the information into the database of your choice. This is a daily delta file that will be interfaced over from source. In the event there is an error processing the records in the file, the entire file should rollback.
-3. Write the APIs that will fulfill the below given user stories. Swagger documentation should be provided. No front-end screens are required to be developed - just the APIs. However, you should be prepared to articulate how the APIs are envisoned to be utilised by the front-end developer. :)
+## Tech Stack
+- .NET 10
+- SQLite + Entity Framework Core
+- JWT Authentication
+- CsvHelper
 
-### User Stories
-* As a user, I want to be able to filter the list of carpark by the following criteria:
-  - Carpark that offer free parking
-  - Carpark that offer night parking
-  - Carpark that can meet my vehicle height requirement.
-* As a user, I want to be able to add a specific carpark as my favourite.
+## How to Run
+### 1. Clone the repo
+git clone https://github.com/ameliayay/carpark-info-assignment.git
+cd carpark-info-assignment/CarPark
 
-## Getting Started
-Please review the information in this section before you get started with your development. 
+### 2. Run the app
+dotnet run
 
-* Create a personal fork of the project on Github.
-* Clone the fork on your local machine.
-* Implement your solution and the rest of git basics applies.
-* When you are ready, submit the forked repo for review by providing the link to the repo to our recruitment team.
+### 3. Open Swagger UI
+http://localhost:5185/scalar/v1
 
-### Tech Stack
-You may choose to develop the application using either of the following stack:
-* Spring Boot / Spring Batch with H2 database and ORM of your choice
-* .NET Core 6.x with SQLite database and ORM of your choice
-* Node.js with an in-memory database of your choice
+## Testing the API
+### Step 1: Import CSV data
+curl -X POST http://localhost:5185/api/batch/import/hdb-carpark-information-20220824010400.csv
 
-Note: You are encouraged to try out .NET Core as Microsoft technologies are primarily used within the firm.
+### Step 2: Register
+curl -X POST http://localhost:5185/api/auth/register -H "Content-Type: application/json" -d "{\"username\":\"amelia\",\"email\":\"amelia@email.com\",\"password\":\"password123\"}"
 
-### Tools
-You are free to choose the IDE (Integrated Development Environment) tool you are most comfortable with.
+### Step 3: Login and Save Token
+curl -X POST http://localhost:5185/api/auth/login -H "Content-Type: application/json" -d "{\"username\":\"amelia\",\"password\":\"password123\"}"
 
-## Basic Expectation
-* Ability to design data schema, apply normalisation technique and enhance query performances, if applicable.
-* Write readable, maintainable, performant and well-documented codes.
-* Code design / architecture should support implementation of unit testing.
-* Code design / architecture should be flexible to changes / open to extensions, e.g. changing of data access technology, changing of interface file format from csv to JSON etc.
-* Write clear and concise commit message.
+Copy the token from the response, then save it:
+set TOKEN=!!!PASTE TOKEN!!!
 
-## Challenge Yourself
-Additional consideration to fine-tune your solution. It's not a must to implement in this assignment but please be prepared to discuss:
-* The dataset has the potential to be large in size.
-* Minimal human intervention for job recovery.
-* Secure coding practices
-* API authentication and authorisation
+### Step 4: Filter Carparks (No Token Needed)
+Get All Carparks
+curl http://localhost:5185/api/carparks
 
-## Time Estimates
-This assignment should take about 2 to 4 hours of your time depending on your level of experiences. 
+Filter by Free Parking
+curl "http://localhost:5185/api/carparks?freeParking=true"
 
-## Need Help
-Create a github issue. We'll get back to you.
+Filter by Night Parking
+curl "http://localhost:5185/api/carparks?nightParking=true"
+
+Filter by Vehicle Height
+curl "http://localhost:5185/api/carparks?minVehicleHeight=2.1"
+
+Combine All Filters
+curl "http://localhost:5185/api/carparks?freeParking=true&nightParking=true&minVehicleHeight=2.1"
+
+Get Single Carpark
+curl http://localhost:5185/api/carparks/ACB
+
+### Step 5: Test favourite
+Add Favourite
+curl -X POST http://localhost:5185/api/favourites -H "Content-Type: application/json" -H "Authorization: Bearer %TOKEN%" -d "{\"carParkNo\":\"ACB\"}"
+
+Get Favourites
+curl http://localhost:5185/api/favourites -H "Authorization: Bearer %TOKEN%"
+
+Remove Favourite
+curl -X DELETE http://localhost:5185/api/favourites/ACB -H "Authorization: Bearer %TOKEN%"
+
+## ER Diagram
+[Carpark.png]
+
+
+
