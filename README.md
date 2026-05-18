@@ -74,7 +74,7 @@ curl http://localhost:5185/api/carparks/ACB
 ```
 
 ### Step 5: Test favourite
-Add Favourite\
+Add Favourite
 ```bash
 curl -X POST http://localhost:5185/api/favourites -H "Content-Type: application/json" -H "Authorization: Bearer %TOKEN%" -d "{\"carParkNo\":\"ACB\"}"
 ```
