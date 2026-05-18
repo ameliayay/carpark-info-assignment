@@ -8,8 +8,8 @@
 
 ## How to Run
 ### 1. Clone the repo
-git clone https://github.com/ameliayay/carpark-info-assignment.git
-cd carpark-info-assignment/CarPark
+- git clone https://github.com/ameliayay/carpark-info-assignment.git
+- cd carpark-info-assignment/CarPark
 
 ### 2. Run the app
 dotnet run
