@@ -25,7 +25,11 @@ curl -X POST http://localhost:5185/api/batch/import/hdb-carpark-information-2022
 curl -X POST http://localhost:5185/api/auth/register -H "Content-Type: application/json" -d "{\"username\":\"amelia\",\"email\":\"amelia@email.com\",\"password\":\"password123\"}"
 
 ### Step 3: Login and Save Token
-curl -X POST http://localhost:5185/api/auth/login -H "Content-Type: application/json" -d "{\"username\":\"amelia\",\"password\":\"password123\"}"
+```bash
+curl -X POST http://localhost:5185/api/auth/login \
+-H "Content-Type: application/json" \
+-d "{\"username\":\"amelia\",\"password\":\"password123\"}"
+```
 
 Copy the token from the response, then save it:
 set TOKEN=!!!PASTE TOKEN!!!
