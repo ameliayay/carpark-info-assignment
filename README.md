@@ -8,27 +8,33 @@
 
 ## How to Run
 ### 1. Clone the repo
-- git clone https://github.com/ameliayay/carpark-info-assignment.git
-- cd carpark-info-assignment/CarPark
+```bash
+git clone https://github.com/ameliayay/carpark-info-assignment.git
+cd carpark-info-assignment/CarPark
+```
 
 ### 2. Run the app
+```bash
 dotnet run
+```
 
 ### 3. Open Swagger UI
 http://localhost:5185/scalar/v1
 
 ## Testing the API
 ### Step 1: Import CSV data
+```bash
 curl -X POST http://localhost:5185/api/batch/import/hdb-carpark-information-20220824010400.csv
+```
 
 ### Step 2: Register
+```bash
 curl -X POST http://localhost:5185/api/auth/register -H "Content-Type: application/json" -d "{\"username\":\"amelia\",\"email\":\"amelia@email.com\",\"password\":\"password123\"}"
+```
 
 ### Step 3: Login and Save Token
 ```bash
-curl -X POST http://localhost:5185/api/auth/login \
--H "Content-Type: application/json" \
--d "{\"username\":\"amelia\",\"password\":\"password123\"}"
+curl -X POST http://localhost:5185/api/auth/login -H "Content-Type: application/json" -d "{\"username\":\"amelia\",\"password\":\"password123\"}"
 ```
 
 Copy the token from the response, then save it:
